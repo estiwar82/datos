@@ -1,0 +1,113 @@
+class Nodo {
+  constructor(dato) {
+      this.dato = dato;
+          this.izquierda = null;
+              this.derecha = null;
+                }
+                }
+class ArbolBinario {
+  constructor() {
+      this.inicio = null;
+        }
+  //INSERTA
+    insertar(dato) {
+        let nuevoNodo = new Nodo(dato);
+    if (this.inicio === null) this.inicio = nuevoNodo;
+        else this.insertarNodo(this.inicio, nuevoNodo);
+          }
+            insertarNodo(Nodo, nuevoNodo) {
+                if (nuevoNodo.dato < Nodo.dato) {
+                      if (Nodo.izquierda === null) Nodo.izquierda = nuevoNodo;
+                            else this.insertarNodo(Nodo.izquierda, nuevoNodo);
+                                } else {
+                                      if (Nodo.derecha === null) Nodo.derecha = nuevoNodo;
+                                            else this.insertarNodo(Nodo.derecha, nuevoNodo);
+                                                }
+                                                  }
+  //ELIMINAR
+    elimina(dato) {
+        this.inicio = this.eliminaNodo(this.inicio, dato);
+          }
+            eliminaNodo(Nodo, dato) {
+                if (Nodo === null) return null;
+                    else if (dato < Nodo.dato) {
+                          Nodo.izquierda = this.eliminaNodo(Nodo.izquierda, dato);
+                                return Nodo;
+                                    } else if (dato > Nodo.dato) {
+                                          Nodo.derecha = this.eliminaNodo(Nodo.derecha, dato);
+                                                return Nodo;
+                                                    } else {
+                                                          if (Nodo.izquierda === null && Nodo.derecha === null) {
+                                                                  Nodo = null;
+                                                                          return Nodo;
+                                                                                }
+      if (Nodo.izquierda === null) {
+              Nodo = Nodo.derecha;
+                      return Nodo;
+                            } else if (Nodo.derecha === null) {
+                                    Nodo = Nodo.izquierda;
+                                            return Nodo;
+                                                  }
+      let temporal = this.buscaNodoMinimo(Nodo.derecha);
+            Nodo.dato = temporal.dato;
+      Nodo.derecha = this.eliminaNodo(Nodo.derecha, temporal.dato);
+            return Nodo;
+                }
+                  }
+  //TIPOS DE BUSQUEDAS
+    budquedaEnOrden(Nodo) {
+        if (Nodo !== null) {
+              this.budquedaEnOrden(Nodo.izquierda);
+                    console.log(Nodo.dato);
+                          this.budquedaEnOrden(Nodo.derecha);
+                              }
+                                }
+                                  busquedaEnPreOrden(Nodo) {
+                                      if (Nodo !== null) {
+                                            console.log(Nodo.dato);
+                                                  this.busquedaEnPreOrden(Nodo.izquierda);
+                                                        this.busquedaEnPreOrden(Nodo.derecha);
+                                                            }
+                                                              }
+                                                                busquedaEnPostOrden(Nodo) {
+                                                                    if (Nodo !== null) {
+                                                                          this.busquedaEnPostOrden(Nodo.izquierda);
+                                                                                this.busquedaEnPostOrden(Nodo.derecha);
+                                                                                      console.log(Nodo.dato);
+                                                                                          }
+                                                                                            }
+  //APOYO
+    obtenerInicioDelNodo() {
+        return this.inicio;
+          }
+            buscaNodoMinimo(Nodo) {
+                if (Nodo.izquierda === null) return Nodo;
+                    else return this.buscaNodoMinimo(Nodo.izquierda);
+                      }
+                      }
+let Arbol = new ArbolBinario();
+
+Arbol.insertar(464);
+Arbol.insertar(224);
+Arbol.insertar(678);
+Arbol.insertar(908);
+Arbol.insertar(112);
+Arbol.insertar(124);
+Arbol.insertar(34);
+Arbol.insertar(77);
+Arbol.insertar(39);
+Arbol.insertar(208);
+Arbol.insertar(389);
+Arbol.insertar(988);
+Arbol.insertar(776);
+
+
+// Recorridos
+console.log("budquedaEnOrden");
+Arbol.budquedaEnOrden(inicio);
+
+console.log("busquedaEnPostOrden");
+Arbol.busquedaEnPostOrden(inicio);
+
+console.log("busquedaEnPreOrden");
+Arbol.busquedaEnPreOrden(inicio);
